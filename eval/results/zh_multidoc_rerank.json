@@ -1,0 +1,782 @@
+{
+  "corpus_files": [
+    "D:\\vscode-project\\Local_Pdf_Chat_RAG\\挖掘机维修案例(样例）.pdf",
+    "D:\\vscode-project\\Local_Pdf_Chat_RAG\\eval\\data\\1.pptx",
+    "D:\\vscode-project\\Local_Pdf_Chat_RAG\\eval\\data\\3系统总线.pptx",
+    "D:\\vscode-project\\Local_Pdf_Chat_RAG\\eval\\data\\6计算机的运算方法1.pptx",
+    "D:\\vscode-project\\Local_Pdf_Chat_RAG\\eval\\data\\7指令系统.pptx",
+    "D:\\vscode-project\\Local_Pdf_Chat_RAG\\eval\\data\\8CPU的结构和功能.pptx",
+    "D:\\vscode-project\\Local_Pdf_Chat_RAG\\eval\\data\\gzx9控制单元的功能.pptx",
+    "D:\\vscode-project\\Local_Pdf_Chat_RAG\\eval\\data\\数据库课程设计题目汇总-2024.pdf"
+  ],
+  "documents": [
+    {
+      "source": "挖掘机维修案例(样例）.pdf",
+      "chars": 2025,
+      "chunks": 7
+    },
+    {
+      "source": "1.pptx",
+      "chars": 2610,
+      "chunks": 8
+    },
+    {
+      "source": "3系统总线.pptx",
+      "chars": 1680,
+      "chunks": 6
+    },
+    {
+      "source": "6计算机的运算方法1.pptx",
+      "chars": 12676,
+      "chunks": 42
+    },
+    {
+      "source": "7指令系统.pptx",
+      "chars": 5342,
+      "chunks": 19
+    },
+    {
+      "source": "8CPU的结构和功能.pptx",
+      "chars": 4714,
+      "chunks": 14
+    },
+    {
+      "source": "gzx9控制单元的功能.pptx",
+      "chars": 2604,
+      "chunks": 8
+    },
+    {
+      "source": "数据库课程设计题目汇总-2024.pdf",
+      "chars": 11422,
+      "chunks": 36
+    }
+  ],
+  "dataset": "D:\\vscode-project\\Local_Pdf_Chat_RAG\\eval\\golden_qa.jsonl",
+  "k": 5,
+  "retrieval_top_k": 10,
+  "rerank": true,
+  "metrics": {
+    "recall@5": 0.8981884057971014,
+    "mrr@5": 0.8822463768115942,
+    "ndcg@5": 0.8445826016411412
+  },
+  "per_query": [
+    {
+      "id": "blue-smoke-causes",
+      "question": "发动机冒蓝烟的可能故障原因有哪些？",
+      "relevant_ids": [
+        "doc_000_chunk_000"
+      ],
+      "top_ids": [
+        "doc_000_chunk_000",
+        "doc_000_chunk_005",
+        "doc_000_chunk_006",
+        "doc_000_chunk_001",
+        "doc_000_chunk_003"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "blue-smoke-repair",
+      "question": "发动机冒蓝烟最终更换了什么部件？",
+      "relevant_ids": [
+        "doc_000_chunk_000",
+        "doc_000_chunk_001"
+      ],
+      "top_ids": [
+        "doc_000_chunk_000",
+        "doc_000_chunk_006",
+        "doc_000_chunk_005",
+        "doc_000_chunk_001",
+        "doc_000_chunk_003"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "blue-smoke-cylinder",
+      "question": "发动机冒蓝烟案例中，断缸测试发现哪一缸缺缸？",
+      "relevant_ids": [
+        "doc_000_chunk_000"
+      ],
+      "top_ids": [
+        "doc_000_chunk_000",
+        "doc_000_chunk_001",
+        "doc_000_chunk_002",
+        "doc_000_chunk_006",
+        "doc_000_chunk_005"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "blue-smoke-analysis",
+      "question": "发动机冒蓝烟的故障现象分析是什么？",
+      "relevant_ids": [
+        "doc_000_chunk_000"
+      ],
+      "top_ids": [
+        "doc_000_chunk_000",
+        "doc_000_chunk_005",
+        "doc_000_chunk_006",
+        "doc_000_chunk_003",
+        "doc_000_chunk_001"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "blue-smoke-prevention",
+      "question": "发动机冒蓝烟案例的预防再发建议是什么？",
+      "relevant_ids": [
+        "doc_000_chunk_001"
+      ],
+      "top_ids": [
+        "doc_000_chunk_006",
+        "doc_000_chunk_001",
+        "doc_000_chunk_005",
+        "doc_000_chunk_000",
+        "doc_000_chunk_003"
+      ],
+      "first_relevant_rank": 2
+    },
+    {
+      "id": "idle-causes",
+      "question": "挖机60E怠速抖动大的可能原因有哪些？",
+      "relevant_ids": [
+        "doc_000_chunk_001",
+        "doc_000_chunk_002"
+      ],
+      "top_ids": [
+        "doc_000_chunk_001",
+        "doc_000_chunk_002",
+        "doc_000_chunk_005",
+        "doc_000_chunk_003",
+        "doc_000_chunk_000"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "idle-repair",
+      "question": "挖机60E怠速抖动大最终是如何解决的？",
+      "relevant_ids": [
+        "doc_000_chunk_002"
+      ],
+      "top_ids": [
+        "doc_000_chunk_001",
+        "doc_000_chunk_002",
+        "doc_000_chunk_003",
+        "doc_000_chunk_005",
+        "doc_000_chunk_006"
+      ],
+      "first_relevant_rank": 2
+    },
+    {
+      "id": "idle-rpm",
+      "question": "挖机60E怠速抖动案例中，发动机在什么转速以下抖动明显？",
+      "relevant_ids": [
+        "doc_000_chunk_002"
+      ],
+      "top_ids": [
+        "doc_000_chunk_001",
+        "doc_000_chunk_002",
+        "doc_000_chunk_005",
+        "doc_000_chunk_003",
+        "doc_000_chunk_000"
+      ],
+      "first_relevant_rank": 2
+    },
+    {
+      "id": "temp-false-high",
+      "question": "水温高报警案例中，如何判断是真高温还是假高温？",
+      "relevant_ids": [
+        "doc_000_chunk_003"
+      ],
+      "top_ids": [
+        "doc_000_chunk_003",
+        "doc_000_chunk_004",
+        "doc_000_chunk_000",
+        "doc_003_chunk_008",
+        "doc_003_chunk_037"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "temp-repair",
+      "question": "水温高报警最终更换了什么？",
+      "relevant_ids": [
+        "doc_000_chunk_005"
+      ],
+      "top_ids": [
+        "doc_000_chunk_003",
+        "doc_000_chunk_004",
+        "doc_000_chunk_006",
+        "doc_000_chunk_005",
+        "doc_000_chunk_000"
+      ],
+      "first_relevant_rank": 4
+    },
+    {
+      "id": "temp-power",
+      "question": "水温高案例中，检查总电源发现了什么问题？",
+      "relevant_ids": [
+        "doc_000_chunk_004",
+        "doc_000_chunk_005"
+      ],
+      "top_ids": [
+        "doc_000_chunk_004",
+        "doc_000_chunk_005",
+        "doc_000_chunk_003",
+        "doc_000_chunk_006",
+        "doc_000_chunk_000"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "temp-range",
+      "question": "水温高案例中，司机反馈的水温异常范围是多少？",
+      "relevant_ids": [
+        "doc_000_chunk_004"
+      ],
+      "top_ids": [
+        "doc_000_chunk_004",
+        "doc_000_chunk_003",
+        "doc_000_chunk_000",
+        "doc_000_chunk_005",
+        "doc_005_chunk_005"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "hard-start-causes",
+      "question": "停车时间长后偶尔不好启动的可能原因有哪些？",
+      "relevant_ids": [
+        "doc_000_chunk_005",
+        "doc_000_chunk_006"
+      ],
+      "top_ids": [
+        "doc_000_chunk_005",
+        "doc_000_chunk_006",
+        "doc_000_chunk_002",
+        "doc_000_chunk_003",
+        "doc_000_chunk_001"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "hard-start-repair",
+      "question": "停车时间长后不好启动最终维修方案是什么？",
+      "relevant_ids": [
+        "doc_000_chunk_006"
+      ],
+      "top_ids": [
+        "doc_000_chunk_005",
+        "doc_000_chunk_003",
+        "doc_000_chunk_006",
+        "doc_000_chunk_001",
+        "doc_000_chunk_002"
+      ],
+      "first_relevant_rank": 3
+    },
+    {
+      "id": "hard-start-tank",
+      "question": "不好启动案例中，燃油箱底部发现了什么？",
+      "relevant_ids": [
+        "doc_000_chunk_006"
+      ],
+      "top_ids": [
+        "doc_000_chunk_006",
+        "doc_000_chunk_005",
+        "doc_000_chunk_002",
+        "doc_000_chunk_004",
+        "doc_000_chunk_001"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "hard-start-prevention",
+      "question": "不好启动案例的预防再发建议是什么？",
+      "relevant_ids": [
+        "doc_000_chunk_006"
+      ],
+      "top_ids": [
+        "doc_000_chunk_005",
+        "doc_000_chunk_006",
+        "doc_000_chunk_001",
+        "doc_000_chunk_003",
+        "doc_000_chunk_004"
+      ],
+      "first_relevant_rank": 2
+    },
+    {
+      "id": "von-neumann-features",
+      "question": "冯·诺依曼计算机的特点有哪些？",
+      "relevant_ids": [
+        "doc_001_chunk_002"
+      ],
+      "top_ids": [
+        "doc_001_chunk_002",
+        "doc_001_chunk_003",
+        "doc_001_chunk_001",
+        "doc_007_chunk_032",
+        "doc_004_chunk_017"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "hardware-metrics",
+      "question": "计算机硬件的主要技术指标有哪些？",
+      "relevant_ids": [
+        "doc_001_chunk_006",
+        "doc_001_chunk_007",
+        "doc_002_chunk_000",
+        "doc_004_chunk_007",
+        "doc_004_chunk_018"
+      ],
+      "top_ids": [
+        "doc_001_chunk_007",
+        "doc_001_chunk_006",
+        "doc_001_chunk_000",
+        "doc_005_chunk_008",
+        "doc_001_chunk_001"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "architecture-vs-organization",
+      "question": "计算机体系结构和计算机组成有什么区别？",
+      "relevant_ids": [
+        "doc_001_chunk_002"
+      ],
+      "top_ids": [
+        "doc_001_chunk_002",
+        "doc_001_chunk_001",
+        "doc_001_chunk_000",
+        "doc_001_chunk_003",
+        "doc_004_chunk_018"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "mar-mdr",
+      "question": "存储器的MAR和MDR分别反映什么？",
+      "relevant_ids": [
+        "doc_001_chunk_005"
+      ],
+      "top_ids": [
+        "doc_001_chunk_005",
+        "doc_006_chunk_003",
+        "doc_005_chunk_001",
+        "doc_005_chunk_002",
+        "doc_001_chunk_006"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "comm-bus-types",
+      "question": "通信总线按传输方式分为哪两类？",
+      "relevant_ids": [
+        "doc_002_chunk_000"
+      ],
+      "top_ids": [
+        "doc_002_chunk_000",
+        "doc_002_chunk_005",
+        "doc_002_chunk_003",
+        "doc_002_chunk_004",
+        "doc_002_chunk_002"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "bus-performance",
+      "question": "总线的性能指标包括哪些？",
+      "relevant_ids": [
+        "doc_002_chunk_001"
+      ],
+      "top_ids": [
+        "doc_002_chunk_001",
+        "doc_002_chunk_000",
+        "doc_002_chunk_002",
+        "doc_002_chunk_003",
+        "doc_005_chunk_007"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "bus-arbitration",
+      "question": "总线判优控制分为哪两类？",
+      "relevant_ids": [
+        "doc_002_chunk_002"
+      ],
+      "top_ids": [
+        "doc_002_chunk_002",
+        "doc_002_chunk_000",
+        "doc_002_chunk_003",
+        "doc_002_chunk_001",
+        "doc_005_chunk_010"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "bus-comm-modes",
+      "question": "总线通信的四种方式是什么？",
+      "relevant_ids": [
+        "doc_002_chunk_003",
+        "doc_002_chunk_004",
+        "doc_002_chunk_005"
+      ],
+      "top_ids": [
+        "doc_002_chunk_003",
+        "doc_002_chunk_005",
+        "doc_002_chunk_000",
+        "doc_002_chunk_002",
+        "doc_002_chunk_004"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "separate-comm",
+      "question": "分离式通信的特点有哪些？",
+      "relevant_ids": [
+        "doc_002_chunk_005"
+      ],
+      "top_ids": [
+        "doc_002_chunk_005",
+        "doc_002_chunk_004",
+        "doc_004_chunk_017",
+        "doc_002_chunk_003",
+        "doc_005_chunk_008"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "opcode-length",
+      "question": "操作码的长度有哪两种？",
+      "relevant_ids": [
+        "doc_004_chunk_000",
+        "doc_004_chunk_017"
+      ],
+      "top_ids": [
+        "doc_004_chunk_002",
+        "doc_004_chunk_000",
+        "doc_004_chunk_014",
+        "doc_003_chunk_015",
+        "doc_004_chunk_013"
+      ],
+      "first_relevant_rank": 2
+    },
+    {
+      "id": "extended-opcode",
+      "question": "扩展操作码技术中，4位操作码最多构成多少条三地址指令？",
+      "relevant_ids": [
+        "doc_004_chunk_000"
+      ],
+      "top_ids": [
+        "doc_004_chunk_000",
+        "doc_004_chunk_002",
+        "doc_004_chunk_014",
+        "doc_004_chunk_001",
+        "doc_004_chunk_013"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "immediate-addressing",
+      "question": "立即寻址的特点是什么？",
+      "relevant_ids": [
+        "doc_004_chunk_002",
+        "doc_004_chunk_007"
+      ],
+      "top_ids": [
+        "doc_004_chunk_007",
+        "doc_004_chunk_011",
+        "doc_004_chunk_012",
+        "doc_004_chunk_008",
+        "doc_004_chunk_009"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "risc-features",
+      "question": "RISC的主要特征有哪些？",
+      "relevant_ids": [
+        "doc_004_chunk_017"
+      ],
+      "top_ids": [
+        "doc_004_chunk_017",
+        "doc_004_chunk_018",
+        "doc_004_chunk_016",
+        "doc_007_chunk_032",
+        "doc_004_chunk_000"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "risc-cisc-diff",
+      "question": "RISC和CISC的主要区别有哪些？",
+      "relevant_ids": [
+        "doc_004_chunk_018"
+      ],
+      "top_ids": [
+        "doc_004_chunk_018",
+        "doc_004_chunk_017",
+        "doc_004_chunk_016",
+        "doc_004_chunk_000",
+        "doc_004_chunk_003"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "cpu-registers",
+      "question": "CPU的寄存器分为哪两类？",
+      "relevant_ids": [
+        "doc_005_chunk_001"
+      ],
+      "top_ids": [
+        "doc_005_chunk_001",
+        "doc_004_chunk_017",
+        "doc_005_chunk_000",
+        "doc_001_chunk_005",
+        "doc_004_chunk_010"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "instruction-cycle-periods",
+      "question": "指令周期包含哪几个工作周期？",
+      "relevant_ids": [
+        "doc_005_chunk_002",
+        "doc_005_chunk_003",
+        "doc_005_chunk_011",
+        "doc_005_chunk_013",
+        "doc_006_chunk_000",
+        "doc_006_chunk_001",
+        "doc_006_chunk_002",
+        "doc_006_chunk_003"
+      ],
+      "top_ids": [
+        "doc_005_chunk_002",
+        "doc_006_chunk_000",
+        "doc_006_chunk_004",
+        "doc_005_chunk_003",
+        "doc_006_chunk_003"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "structural-hazard",
+      "question": "指令流水线的结构相关是什么？",
+      "relevant_ids": [
+        "doc_005_chunk_006"
+      ],
+      "top_ids": [
+        "doc_005_chunk_006",
+        "doc_005_chunk_008",
+        "doc_005_chunk_005",
+        "doc_005_chunk_000",
+        "doc_005_chunk_004"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "data-hazards",
+      "question": "数据相关有哪三种类型？",
+      "relevant_ids": [
+        "doc_005_chunk_006"
+      ],
+      "top_ids": [
+        "doc_004_chunk_004",
+        "doc_005_chunk_006",
+        "doc_004_chunk_003",
+        "doc_007_chunk_035",
+        "doc_007_chunk_029"
+      ],
+      "first_relevant_rank": 2
+    },
+    {
+      "id": "interrupt-hidden-instruction",
+      "question": "中断隐指令完成哪些操作？",
+      "relevant_ids": [
+        "doc_005_chunk_011"
+      ],
+      "top_ids": [
+        "doc_005_chunk_011",
+        "doc_005_chunk_013",
+        "doc_005_chunk_008",
+        "doc_005_chunk_012",
+        "doc_006_chunk_007"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "multi-level-timing",
+      "question": "机器周期和时钟周期是什么关系？",
+      "relevant_ids": [
+        "doc_006_chunk_004"
+      ],
+      "top_ids": [
+        "doc_006_chunk_004",
+        "doc_006_chunk_005",
+        "doc_006_chunk_007",
+        "doc_006_chunk_003",
+        "doc_006_chunk_001"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "control-modes",
+      "question": "控制方式分为哪几种？",
+      "relevant_ids": [
+        "doc_006_chunk_005",
+        "doc_006_chunk_006"
+      ],
+      "top_ids": [
+        "doc_006_chunk_005",
+        "doc_006_chunk_006",
+        "doc_002_chunk_002",
+        "doc_002_chunk_003",
+        "doc_007_chunk_012"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "cu-inputs",
+      "question": "控制单元的时钟和操作码分别起什么作用？",
+      "relevant_ids": [
+        "doc_006_chunk_001"
+      ],
+      "top_ids": [
+        "doc_006_chunk_001",
+        "doc_004_chunk_000",
+        "doc_006_chunk_000",
+        "doc_006_chunk_004",
+        "doc_006_chunk_007"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "signed-number-representations",
+      "question": "有符号数的机器数表示方法有哪几种？",
+      "relevant_ids": [
+        "doc_003_chunk_001",
+        "doc_003_chunk_003",
+        "doc_003_chunk_006",
+        "doc_003_chunk_009"
+      ],
+      "top_ids": [
+        "doc_003_chunk_001",
+        "doc_003_chunk_020",
+        "doc_003_chunk_022",
+        "doc_003_chunk_037",
+        "doc_003_chunk_026"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "shift-code-feature",
+      "question": "移码有什么特点？",
+      "relevant_ids": [
+        "doc_003_chunk_010",
+        "doc_003_chunk_011"
+      ],
+      "top_ids": [
+        "doc_003_chunk_010",
+        "doc_003_chunk_009",
+        "doc_003_chunk_020",
+        "doc_003_chunk_016",
+        "doc_003_chunk_031"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "float-bits",
+      "question": "浮点数表示中，尾数位数和阶码位数分别反映什么？",
+      "relevant_ids": [
+        "doc_003_chunk_012"
+      ],
+      "top_ids": [
+        "doc_003_chunk_016",
+        "doc_003_chunk_018",
+        "doc_003_chunk_015",
+        "doc_003_chunk_017",
+        "doc_003_chunk_014"
+      ],
+      "first_relevant_rank": null
+    },
+    {
+      "id": "fixed-point-types",
+      "question": "定点机分为哪两类？",
+      "relevant_ids": [
+        "doc_003_chunk_011"
+      ],
+      "top_ids": [
+        "doc_003_chunk_011",
+        "doc_003_chunk_012",
+        "doc_004_chunk_003",
+        "doc_003_chunk_013",
+        "doc_003_chunk_038"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "db-design-steps",
+      "question": "数据库课程设计需要依次完成哪些内容？",
+      "relevant_ids": [
+        "doc_007_chunk_000"
+      ],
+      "top_ids": [
+        "doc_007_chunk_000",
+        "doc_007_chunk_035",
+        "doc_007_chunk_030",
+        "doc_007_chunk_001",
+        "doc_007_chunk_032"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "db-oracle",
+      "question": "课程设计在哪种数据库上建立数据库并运行PL/SQL程序？",
+      "relevant_ids": [
+        "doc_007_chunk_000",
+        "doc_007_chunk_033",
+        "doc_007_chunk_034"
+      ],
+      "top_ids": [
+        "doc_007_chunk_000",
+        "doc_007_chunk_001",
+        "doc_007_chunk_034",
+        "doc_007_chunk_029",
+        "doc_007_chunk_035"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "db-group",
+      "question": "课程设计的分组要求是什么？",
+      "relevant_ids": [
+        "doc_007_chunk_001"
+      ],
+      "top_ids": [
+        "doc_007_chunk_001",
+        "doc_007_chunk_035",
+        "doc_007_chunk_000",
+        "doc_007_chunk_030",
+        "doc_007_chunk_033"
+      ],
+      "first_relevant_rank": 1
+    },
+    {
+      "id": "db-blog-features",
+      "question": "博客管理系统题目要求实现哪些功能？",
+      "relevant_ids": [
+        "doc_007_chunk_002",
+        "doc_007_chunk_003"
+      ],
+      "top_ids": [
+        "doc_007_chunk_002",
+        "doc_007_chunk_029",
+        "doc_007_chunk_007",
+        "doc_007_chunk_014",
+        "doc_007_chunk_003"
+      ],
+      "first_relevant_rank": 1
+    }
+  ]
+}

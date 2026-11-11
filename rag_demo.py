@@ -12,7 +12,6 @@
 """
 
 import os
-import time
 import logging
 import webbrowser
 import gradio as gr
@@ -24,15 +23,12 @@ from datetime import datetime
 from config import (
     DEFAULT_MODEL_CHOICE, SILICONFLOW_API_KEY, MAGICK_API_KEY,
     OLLAMA_MODEL_NAME, SILICONFLOW_MODEL_NAME, MAGICK_MODEL_NAME,
-    MODEL_CHOICES, MODEL_DISPLAY_NAMES, is_configured_api_key
+    EMBED_MODEL_NAME, MODEL_CHOICES, MODEL_DISPLAY_NAMES, is_configured_api_key
 )
 
 # 导入核心模块
-from core.document_loader import extract_text
-from core.text_splitter import split_text
-from core.embeddings import encode_texts
+from core.knowledge_base import knowledge_base
 from core.vector_store import vector_store
-from core.bm25_index import bm25_manager
 from core.generator import query_answer, call_siliconflow_api, call_magick_api
 
 # 导入工具
@@ -41,64 +37,60 @@ from utils.network import is_port_available
 logging.basicConfig(level=logging.INFO)
 print("Gradio version:", gr.__version__)
 
+# 启动时加载已持久化的知识库（重建 FAISS / BM25 派生索引）
+knowledge_base.load()
+
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 文档处理
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def format_document_list():
+    """返回已持久化文档列表，供 UI 展示。"""
+    return [
+        f"📄 {doc.filename} ({doc.chunks} 块)"
+        for doc in knowledge_base.list_documents()
+    ]
+
+
+def format_document_list_text():
+    return "\n".join(format_document_list())
+
+
 def process_multiple_files(files, progress=gr.Progress()):
-    """处理多个文件：提取文本 → 分块 → 向量化 → 构建索引"""
+    """处理多个文件：持久化 → 去重 → 增量索引"""
     if not files:
-        return "请选择要上传的文件(支持PDF, Word, Excel, PPT, TXT, Markdown等)", []
+        return (
+            "请选择要上传的文件(支持PDF, Word, Excel, PPT, TXT, Markdown等)",
+            format_document_list_text(),
+        )
 
     try:
-        progress(0.1, desc="清理历史数据...")
-        vector_store.clear()
-        bm25_manager.clear()
+        progress(0.1, desc="处理文件...")
+        results = knowledge_base.add_files(files)
+        progress(1.0, desc="完成!")
 
-        total_files = len(files)
-        processed_results = []
-        all_chunks, all_metadatas, all_ids = [], [], []
+        lines = []
+        for result in results:
+            if result.status == "added":
+                lines.append(
+                    f"✅ {result.filename}: 成功处理 {result.chunks} 个文本块"
+                )
+            elif result.status == "replaced":
+                lines.append(
+                    f"✅ {result.filename}: 内容已更新，处理 {result.chunks} 个文本块"
+                )
+            elif result.status == "unchanged":
+                lines.append(f"ℹ️ {result.filename}: 已存在且未变化，跳过")
+            else:
+                lines.append(f"❌ {result.filename}: 处理失败 - {result.message}")
 
-        for idx, file in enumerate(files, 1):
-            try:
-                file_name = os.path.basename(file.name)
-                progress((idx - 1) / total_files, desc=f"处理文件 {idx}/{total_files}: {file_name}")
-
-                text = extract_text(file.name)
-                if not text:
-                    raise ValueError("文档内容为空或无法提取文本")
-
-                chunks = split_text(text)
-                doc_id = f"doc_{int(time.time())}_{idx}"
-                metadatas = [{"source": file_name, "doc_id": doc_id} for _ in chunks]
-                chunk_ids = [f"{doc_id}_chunk_{i}" for i in range(len(chunks))]
-
-                all_chunks.extend(chunks)
-                all_metadatas.extend(metadatas)
-                all_ids.extend(chunk_ids)
-                processed_results.append(f"✅ {file_name}: 成功处理 {len(chunks)} 个文本块")
-
-            except Exception as e:
-                logging.error(f"处理文件 {file_name} 时出错: {str(e)}")
-                processed_results.append(f"❌ {file_name}: 处理失败 - {str(e)}")
-
-        if all_chunks:
-            progress(0.8, desc="生成文本嵌入...")
-            embeddings = encode_texts(all_chunks, show_progress=True)
-
-            progress(0.9, desc="构建FAISS索引...")
-            vector_store.build_index(all_chunks, all_ids, all_metadatas, embeddings)
-
-        progress(0.95, desc="构建BM25检索索引...")
-        bm25_manager.build_index(all_chunks, all_ids)
-
-        summary = f"\n总计处理 {total_files} 个文件，{len(all_chunks)} 个文本块"
-        processed_results.append(summary)
-        return "\n".join(processed_results), [f"📄 {os.path.basename(f.name)}" for f in files]
+        stats = knowledge_base.stats()
+        lines.append(f"\n知识库总计 {stats.chunks} 个文本块")
+        return "\n".join(lines), format_document_list_text()
 
     except Exception as e:
         logging.error(f"处理过程出错: {str(e)}")
-        return f"处理过程出错: {str(e)}", []
+        return f"处理过程出错: {str(e)}", format_document_list_text()
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -164,7 +156,7 @@ def show_chunk_details(evt: gr.SelectData):
 def get_system_models_info():
     """返回系统使用的各种模型信息"""
     return {
-        "嵌入模型": "all-MiniLM-L6-v2",
+        "嵌入模型": EMBED_MODEL_NAME,
         "分块方法": "RecursiveCharacterTextSplitter (chunk_size=400, overlap=40)",
         "检索方法": "向量检索 + BM25混合检索 (α=0.7)",
         "重排序模型": "交叉编码器 (distiluse-base-multilingual-cased-v2)",
@@ -239,7 +231,11 @@ with gr.Blocks(title="本地RAG问答系统") as demo:
                         )
                         upload_btn = gr.Button("🚀 开始处理", variant="primary")
                         upload_status = gr.Textbox(label="处理状态", interactive=False, lines=2)
-                        file_list = gr.Textbox(label="已处理文件", interactive=False, lines=3, elem_classes="file-list")
+                        file_list = gr.Textbox(
+                            label="已处理文件", interactive=False, lines=3,
+                            value=format_document_list_text(),
+                            elem_classes="file-list"
+                        )
 
                     gr.Markdown("## ❓ 输入问题")
                     with gr.Group():

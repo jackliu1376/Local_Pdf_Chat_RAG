@@ -108,9 +108,12 @@ python api_router.py
 
 Main endpoints:
 
-- `GET /api/status`: runtime and provider configuration status;
-- `POST /api/upload`: upload and process a document;
-- `POST /api/ask`: ask a question against processed documents.
+- `GET /api/status`: runtime, document-count, and provider configuration status;
+- `POST /api/upload`: upload and persist a document;
+- `POST /api/ask`: ask a question against persisted documents;
+- `GET /api/documents`: list persisted documents;
+- `DELETE /api/documents/{filename}`: remove a document;
+- `POST /api/clear`: clear the knowledge base.
 
 ## Repository layout
 
@@ -124,6 +127,7 @@ Main endpoints:
 │   ├── embeddings.py          # Embeddings
 │   ├── vector_store.py        # FAISS index
 │   ├── bm25_index.py          # BM25 index
+│   ├── knowledge_base.py     # SQLite persistence and incremental indexing
 │   ├── retriever.py           # Hybrid and recursive retrieval
 │   ├── reranker.py            # Result reranking
 │   └── generator.py           # Context and answer generation
@@ -160,14 +164,38 @@ See [`example.env`](example.env) for the complete example. Common variables incl
 | `MAGICK_API_URL` | Provider base URL or full Chat Completions URL |
 | `MAGICK_MODEL_NAME` | Provider model ID |
 | `OLLAMA_MODEL_NAME` | Local Ollama model name |
+| `OLLAMA_MAX_OUTPUT_TOKENS` | Max tokens per Ollama answer (default 1024) |
+| `OLLAMA_QUERY_MAX_TOKENS` | Max tokens for Ollama query rewriting (default 64) |
+| `OLLAMA_TIMEOUT_SECONDS` | Ollama request timeout in seconds (default 300) |
+| `EMBED_MODEL_NAME` | Embedding model ID (default `all-MiniLM-L6-v2`) |
+| `EMBED_QUERY_PREFIX` | Optional query instruction prefix for BGE models |
 | `SERPAPI_KEY` | Optional web-search credential |
 | `RERANK_METHOD` | `cross_encoder` or `llm` |
+| `RERANK_MODEL_NAME` | CrossEncoder model ID (default `BAAI/bge-reranker-base`) |
+| `RAG_DATA_DIR` | Persistent data directory (default `data/`) |
+
+## Persistence
+
+The knowledge base is stored in SQLite at `data/rag.db` (override with
+`RAG_DATA_DIR`). FAISS and BM25 are derived indexes rebuilt at startup and
+after each write.
+
+Uploads are deduplicated by SHA-256: unchanged files are skipped, and a
+changed file with the same name replaces its old document. `data/` is
+gitignored; delete it or call `POST /api/clear` to reset the knowledge base.
+
+Run the UI and API with the same `EMBED_MODEL_NAME`. A model mismatch triggers
+automatic re-embedding, and the loader repairs mixed-dimension rows left by
+cross-process writes.
+
+The evaluation harness (`eval/run_retrieval_eval.py`) builds its own in-memory
+index from `eval/data/`; it does not use the persisted knowledge base.
 
 ## Known limitations
 
 - PDF extraction reads the text layer and does not provide general-purpose OCR.
 - Excel and PowerPoint extraction focuses on text rather than visual layout.
-- The index is currently in process memory and must be rebuilt after restart.
+- The knowledge base is persisted in SQLite; FAISS and BM25 are rebuilt at startup. The UI and API are separate processes, so each may serve a stale in-memory index until it reloads.
 - Embedding and reranking models may be downloaded on first use.
 - Cloud model and web-search requests send the relevant query to third-party services; review your data boundary first.
 

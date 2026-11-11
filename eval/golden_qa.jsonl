@@ -1,0 +1,46 @@
+{"id": "blue-smoke-causes", "question": "发动机冒蓝烟的可能故障原因有哪些？", "answer": "油品有问题、缸压不够、喷油器有问题、泵有问题。", "relevant_snippets": ["油品有问题", "缸压不够", "喷油器有问题", "泵有问题"]}
+{"id": "blue-smoke-repair", "question": "发动机冒蓝烟最终更换了什么部件？", "answer": "更换喷油器。", "relevant_snippets": ["更换喷油器"]}
+{"id": "blue-smoke-cylinder", "question": "发动机冒蓝烟案例中，断缸测试发现哪一缸缺缸？", "answer": "4缸缺缸。", "relevant_snippets": ["4缸缺缸"]}
+{"id": "blue-smoke-analysis", "question": "发动机冒蓝烟的故障现象分析是什么？", "answer": "冒蓝烟、柴油味道重、燃油不充分燃烧，可能是缸压问题或喷油器雾化不良。", "relevant_snippets": ["冒蓝烟，柴油味道重，燃油不充分燃烧"]}
+{"id": "blue-smoke-prevention", "question": "发动机冒蓝烟案例的预防再发建议是什么？", "answer": "平时做好油品使用。", "relevant_snippets": ["平时做好油品使用"]}
+{"id": "idle-causes", "question": "挖机60E怠速抖动大的可能原因有哪些？", "answer": "发动机固定螺栓松动、某一缸断缸、喷油器损坏、发动机胶垫损坏。", "relevant_snippets": ["发动机固定螺栓松动", "某一缸断缸", "喷油器损坏了", "发动机胶垫"]}
+{"id": "idle-repair", "question": "挖机60E怠速抖动大最终是如何解决的？", "answer": "更换4个新的发动机胶垫。", "relevant_snippets": ["更换4个新的发动机胶垫"]}
+{"id": "idle-rpm", "question": "挖机60E怠速抖动案例中，发动机在什么转速以下抖动明显？", "answer": "低于1500转以下抖动明显。", "relevant_snippets": ["低于1500转以下抖动现象比较明显"]}
+{"id": "temp-false-high", "question": "水温高报警案例中，如何判断是真高温还是假高温？", "answer": "检查实际水温为62度，判断为假高温。", "relevant_snippets": ["检查实际水温水温为62度", "判断为假高温"]}
+{"id": "temp-repair", "question": "水温高报警最终更换了什么？", "answer": "更换总电源。", "relevant_snippets": ["更换总电源"]}
+{"id": "temp-power", "question": "水温高案例中，检查总电源发现了什么问题？", "answer": "总电源有接通不良情况。", "relevant_snippets": ["检查总电源有接通不良情况"]}
+{"id": "temp-range", "question": "水温高案例中，司机反馈的水温异常范围是多少？", "answer": "水温从70度逐渐提升到120度。", "relevant_snippets": ["水温有70-120逐渐提升是120度"]}
+{"id": "hard-start-causes", "question": "停车时间长后偶尔不好启动的可能原因有哪些？", "answer": "熄火电磁阀/继电器/线路故障、GPS问题、燃油低压油路故障、高压油泵故障。", "relevant_snippets": ["熄火电磁阀", "GPS问题", "燃油低压油路故障", "高压油泵故障"]}
+{"id": "hard-start-repair", "question": "停车时间长后不好启动最终维修方案是什么？", "answer": "清洗燃油箱。", "relevant_snippets": ["清洗燃油箱"]}
+{"id": "hard-start-tank", "question": "不好启动案例中，燃油箱底部发现了什么？", "answer": "铁锈与水。", "relevant_snippets": ["燃油箱底部有铁锈与水"]}
+{"id": "hard-start-prevention", "question": "不好启动案例的预防再发建议是什么？", "answer": "根据原理由简到繁排查，首先排除低压油路问题。", "relevant_snippets": ["首先应排除低压油路问题"]}
+{"id": "von-neumann-features", "question": "冯·诺依曼计算机的特点有哪些？", "answer": "指令和数据用二进制表示，指令由操作码和地址码组成，以运算器为中心，指令在存储器内按顺序存放。", "relevant_snippets": ["指令和数据用二进制表示", "指令由操作码和地址码组成", "以运算器为中心", "指令在存储器内按顺序存放"]}
+{"id": "hardware-metrics", "question": "计算机硬件的主要技术指标有哪些？", "answer": "机器字长、运算速度、存储容量。", "relevant_snippets": ["机器字长", "运算速度", "存储容量"]}
+{"id": "architecture-vs-organization", "question": "计算机体系结构和计算机组成有什么区别？", "answer": "体系结构是程序员所见到的属性，计算机组成是实现体系结构所体现的属性。", "relevant_snippets": ["程序员所见到的计算机系统的属性", "实现计算机体系结构所体现的属性"]}
+{"id": "mar-mdr", "question": "存储器的MAR和MDR分别反映什么？", "answer": "MAR反映存储单元的个数，MDR反映存储字长。", "relevant_snippets": ["反映存储单元的个数", "反映存储字长"]}
+{"id": "comm-bus-types", "question": "通信总线按传输方式分为哪两类？", "answer": "串行通信总线和并行通信总线。", "relevant_snippets": ["串行通信总线", "并行通信总线"]}
+{"id": "bus-performance", "question": "总线的性能指标包括哪些？", "answer": "数据线的根数、每秒传输的最大字节数、负载能力等。", "relevant_snippets": ["数据线的根数", "每秒传输的最大字节数", "负载能力"]}
+{"id": "bus-arbitration", "question": "总线判优控制分为哪两类？", "answer": "集中式和分布式。", "relevant_snippets": ["集中式", "分布式"]}
+{"id": "bus-comm-modes", "question": "总线通信的四种方式是什么？", "answer": "同步通信、异步通信、半同步通信和分离式通信。", "relevant_snippets": ["同步式数据输入", "异步通信", "半同步通信", "分离式通信"]}
+{"id": "separate-comm", "question": "分离式通信的特点有哪些？", "answer": "各模块有权申请占用总线，准备数据时不占用总线，总线被占用时无空闲。", "relevant_snippets": ["各模块有权申请占用总线", "各模块准备数据时，不占用总线", "总线被占用时，无空闲"]}
+{"id": "opcode-length", "question": "操作码的长度有哪两种？", "answer": "长度固定和长度可变。", "relevant_snippets": ["长度固定", "长度可变"]}
+{"id": "extended-opcode", "question": "扩展操作码技术中，4位操作码最多构成多少条三地址指令？", "answer": "最多15条三地址指令。", "relevant_snippets": ["最多15条三地址指令"]}
+{"id": "immediate-addressing", "question": "立即寻址的特点是什么？", "answer": "形式地址A就是操作数，指令执行阶段不访存。", "relevant_snippets": ["形式地址A就是操作数", "指令执行阶段不访存"]}
+{"id": "risc-features", "question": "RISC的主要特征有哪些？", "answer": "指令长度固定、只有LOAD/STORE指令访存、采用组合逻辑实现控制器、CPU中有多个通用寄存器等。", "relevant_snippets": ["只有LOAD/STORE指令访存", "采用组合逻辑实现控制器", "CPU中有多个通用寄存器"]}
+{"id": "risc-cisc-diff", "question": "RISC和CISC的主要区别有哪些？", "answer": "RISC更能充分利用VLSI芯片面积、便于设计、降低成本，但不易实现指令系统兼容。", "relevant_snippets": ["RISC更能充分利用VLSI芯片的面积", "RISC不易实现指令系统兼容", "RISC便于设计，可降低成本"]}
+{"id": "cpu-registers", "question": "CPU的寄存器分为哪两类？", "answer": "用户可见寄存器和控制和状态寄存器。", "relevant_snippets": ["用户可见寄存器", "控制和状态寄存器"]}
+{"id": "instruction-cycle-periods", "question": "指令周期包含哪几个工作周期？", "answer": "取指周期、间址周期、执行周期和中断周期。", "relevant_snippets": ["取指周期", "间址周期", "执行周期", "中断周期"]}
+{"id": "structural-hazard", "question": "指令流水线的结构相关是什么？", "answer": "不同指令争用同一功能部件产生资源冲突。", "relevant_snippets": ["不同指令争用同一功能部件产生资源冲突"]}
+{"id": "data-hazards", "question": "数据相关有哪三种类型？", "answer": "写后读相关（RAW）、读后写相关（WAR）和写后写相关（WAW）。", "relevant_snippets": ["写后读相关（RAW）", "读后写相关（WAR）", "写后写相关（WAW）"]}
+{"id": "interrupt-hidden-instruction", "question": "中断隐指令完成哪些操作？", "answer": "保护程序断点、寻找服务程序入口地址和硬件关中断。", "relevant_snippets": ["保护程序断点", "寻找服务程序入口地址", "硬件关中断"]}
+{"id": "multi-level-timing", "question": "机器周期和时钟周期是什么关系？", "answer": "一个指令周期包含若干个机器周期，一个机器周期包含若干个时钟周期。", "relevant_snippets": ["一个指令周期包含若干个机器周期", "一个机器周期包含若干个时钟周期"]}
+{"id": "control-modes", "question": "控制方式分为哪几种？", "answer": "同步控制方式、异步控制方式、联合控制方式和人工控制方式。", "relevant_snippets": ["同步控制方式", "异步控制方式", "联合控制方式", "人工控制方式"]}
+{"id": "cu-inputs", "question": "控制单元的时钟和操作码分别起什么作用？", "answer": "CU受时钟控制，控制信号与操作码有关。", "relevant_snippets": ["CU受时钟控制", "控制信号与操作码有关"]}
+{"id": "signed-number-representations", "question": "有符号数的机器数表示方法有哪几种？", "answer": "原码、补码、反码和移码表示法。", "relevant_snippets": ["原码表示法", "补码表示法", "反码表示法", "移码表示法"]}
+{"id": "shift-code-feature", "question": "移码有什么特点？", "answer": "用移码表示浮点数的阶码，能方便地判断浮点数的阶码大小。", "relevant_snippets": ["用移码表示浮点数的阶码", "能方便地判断浮点数的阶码大小"]}
+{"id": "float-bits", "question": "浮点数表示中，尾数位数和阶码位数分别反映什么？", "answer": "尾数位数反映浮点数的精度，阶码位数反映浮点数的表示范围。", "relevant_snippets": ["其位数反映浮点数的精度", "其位数反映浮点数的表示范围"]}
+{"id": "fixed-point-types", "question": "定点机分为哪两类？", "answer": "小数定点机和整数定点机。", "relevant_snippets": ["小数定点机", "整数定点机"]}
+{"id": "db-design-steps", "question": "数据库课程设计需要依次完成哪些内容？", "answer": "需求分析、数据库的概念设计、数据库的逻辑设计，以及数据库完整性、安全性保证措施和数据库维护计划。", "relevant_snippets": ["需求分析、数据库的概念设计、数据库的逻辑设计", "数据库完整性、安全性保证措施", "数据库维护计划"]}
+{"id": "db-oracle", "question": "课程设计在哪种数据库上建立数据库并运行PL/SQL程序？", "answer": "Oracle数据库。", "relevant_snippets": ["Oracle数据库", "PL/SQL程序"]}
+{"id": "db-group", "question": "课程设计的分组要求是什么？", "answer": "每组3-4人，每组不允许选择相同的题目。", "relevant_snippets": ["每组3-4人", "每组不允许选择相同的题目"]}
+{"id": "db-blog-features", "question": "博客管理系统题目要求实现哪些功能？", "answer": "管理员自定义会员组、网站积分、内容管理和日志发布自动保存等。", "relevant_snippets": ["管理员可以自由定义会员组", "网站积分", "内容管理", "日志发布自动保存"]}

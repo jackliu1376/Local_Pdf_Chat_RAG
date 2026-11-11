@@ -28,3 +28,6 @@ htmlcov/
 # Local browser verification artifacts
 .playwright-cli/
 output/playwright/
+
+# Runtime knowledge base (anchored; eval/data/ is a committed corpus)
+/data/

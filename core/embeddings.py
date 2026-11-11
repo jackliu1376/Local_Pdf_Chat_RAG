@@ -11,11 +11,13 @@ import logging
 import numpy as np
 from functools import lru_cache
 
+from config import EMBED_MODEL_NAME, EMBED_QUERY_PREFIX
+
 # 模型选择说明：
 # - all-MiniLM-L6-v2: 英文优化，384维，轻量快速（默认）
 # - shibing624/text2vec-base-chinese: 中文优化
 # - BAAI/bge-small-zh-v1.5: 中文优化，性能更好
-EMBED_MODEL_NAME = 'all-MiniLM-L6-v2'
+# 通过 EMBED_MODEL_NAME 环境变量切换。
 
 
 @lru_cache(maxsize=1)
@@ -56,5 +58,6 @@ def encode_query(query):
         numpy 数组，形状为 (1, embedding_dim)
     """
     model = get_embed_model()
-    embedding = model.encode([query])
+    text = f"{EMBED_QUERY_PREFIX}{query}" if EMBED_QUERY_PREFIX else query
+    embedding = model.encode([text])
     return np.array(embedding).astype('float32')

@@ -9,11 +9,13 @@ LLM 调用 —— 大模型回答生成（Ollama + SiliconFlow + Magick API）
 
 import json
 import logging
+import re
 import requests
 from config import (
     SILICONFLOW_API_KEY, SILICONFLOW_API_URL,
     SILICONFLOW_MODEL_NAME, OLLAMA_MODEL_NAME,
-    MAGICK_API_KEY, MAGICK_API_URL, MAGICK_MODEL_NAME
+    MAGICK_API_KEY, MAGICK_API_URL, MAGICK_MODEL_NAME,
+    OLLAMA_MAX_OUTPUT_TOKENS, OLLAMA_QUERY_MAX_TOKENS, OLLAMA_TIMEOUT_SECONDS
 )
 from utils.network import get_session
 from core.retriever import recursive_retrieval
@@ -151,10 +153,20 @@ def call_llm_simple(prompt, model_choice="siliconflow"):
     elif model_choice == "ollama":
         response = get_session().post(
             "http://localhost:11434/api/generate",
-            json={"model": OLLAMA_MODEL_NAME, "prompt": prompt, "stream": False},
-            timeout=180
+            json={
+                "model": OLLAMA_MODEL_NAME,
+                "prompt": prompt,
+                "stream": False,
+                # Query rewriting must not spend its small token budget on
+                # a thinking model's reasoning phase.
+                "think": False,
+                "options": {"num_predict": OLLAMA_QUERY_MAX_TOKENS},
+            },
+            timeout=OLLAMA_TIMEOUT_SECONDS
         )
-        return response.json().get("response", "").strip()
+        result = response.json().get("response", "").strip()
+        result = re.sub(r"<think>.*?</think>", "", result, flags=re.DOTALL).strip()
+        return result
     raise ValueError(f"未知模型选择: {model_choice}")
 
 
@@ -251,8 +263,13 @@ def query_answer(question, enable_web_search=False, model_choice="siliconflow", 
         elif model_choice == "ollama":
             response = get_session().post(
                 "http://localhost:11434/api/generate",
-                json={"model": OLLAMA_MODEL_NAME, "prompt": prompt, "stream": False},
-                timeout=180, headers={'Connection': 'close'}
+                json={
+                    "model": OLLAMA_MODEL_NAME,
+                    "prompt": prompt,
+                    "stream": False,
+                    "options": {"num_predict": OLLAMA_MAX_OUTPUT_TOKENS},
+                },
+                timeout=OLLAMA_TIMEOUT_SECONDS, headers={'Connection': 'close'}
             )
             response.raise_for_status()
             result = str(response.json().get("response", "未获取到有效回答"))
@@ -295,8 +312,13 @@ def stream_answer(question, enable_web_search=False, model_choice="siliconflow",
         elif model_choice == "ollama":
             response = get_session().post(
                 "http://localhost:11434/api/generate",
-                json={"model": OLLAMA_MODEL_NAME, "prompt": prompt, "stream": True},
-                timeout=120, stream=True
+                json={
+                    "model": OLLAMA_MODEL_NAME,
+                    "prompt": prompt,
+                    "stream": True,
+                    "options": {"num_predict": OLLAMA_MAX_OUTPUT_TOKENS},
+                },
+                timeout=OLLAMA_TIMEOUT_SECONDS, stream=True
             )
             full_answer = ""
             for line in response.iter_lines():

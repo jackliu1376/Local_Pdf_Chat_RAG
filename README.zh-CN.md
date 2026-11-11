@@ -108,9 +108,12 @@ python api_router.py
 
 主要接口：
 
-- `GET /api/status`：运行状态与后端配置状态；
-- `POST /api/upload`：上传并处理文档；
-- `POST /api/ask`：基于已处理文档提问。
+- `GET /api/status`：运行状态、文档数量与后端配置状态；
+- `POST /api/upload`：上传并持久化文档；
+- `POST /api/ask`：基于持久化文档提问；
+- `GET /api/documents`：列出已持久化文档；
+- `DELETE /api/documents/{filename}`：删除文档；
+- `POST /api/clear`：清空知识库。
 
 ## 项目结构
 
@@ -124,6 +127,7 @@ python api_router.py
 │   ├── embeddings.py          # 向量化
 │   ├── vector_store.py        # FAISS 索引
 │   ├── bm25_index.py          # BM25 索引
+│   ├── knowledge_base.py     # SQLite 持久化与增量索引
 │   ├── retriever.py           # 混合与递归检索
 │   ├── reranker.py            # 结果重排序
 │   └── generator.py           # 上下文和回答生成
@@ -160,14 +164,35 @@ PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest
 | `MAGICK_API_URL` | 服务 base URL 或完整 Chat Completions URL |
 | `MAGICK_MODEL_NAME` | 服务端模型 ID |
 | `OLLAMA_MODEL_NAME` | 本地 Ollama 模型名称 |
+| `OLLAMA_MAX_OUTPUT_TOKENS` | Ollama 单次回答最大 token 数（默认 1024） |
+| `OLLAMA_QUERY_MAX_TOKENS` | Ollama 查询改写最大 token 数（默认 64） |
+| `OLLAMA_TIMEOUT_SECONDS` | Ollama 请求超时秒数（默认 300） |
+| `EMBED_MODEL_NAME` | 向量化模型 ID（默认 `all-MiniLM-L6-v2`） |
+| `EMBED_QUERY_PREFIX` | BGE 模型可选的查询指令前缀 |
 | `SERPAPI_KEY` | 可选联网搜索密钥 |
 | `RERANK_METHOD` | `cross_encoder` 或 `llm` |
+| `RERANK_MODEL_NAME` | CrossEncoder 模型 ID（默认 `BAAI/bge-reranker-base`） |
+| `RAG_DATA_DIR` | 持久化数据目录（默认 `data/`） |
+
+## 持久化
+
+知识库保存在 SQLite（默认 `data/rag.db`，可用 `RAG_DATA_DIR` 覆盖）。FAISS 和 BM25
+是在启动时和每次写入后重建的派生索引。
+
+上传按 SHA-256 去重：未变化的文件跳过，内容变化的同名文件会替换旧文档。`data/`
+已加入 `.gitignore`；删除该目录或调用 `POST /api/clear` 即可重置知识库。
+
+UI 和 API 应使用相同的 `EMBED_MODEL_NAME`。模型不一致会触发自动重嵌入，
+加载时也会修复跨进程写入造成的混合维度向量。
+
+评测脚本（`eval/run_retrieval_eval.py`）从 `eval/data/` 构建自己的内存索引，
+不使用持久化知识库。
 
 ## 已知边界
 
 - PDF 采用文本层提取，不包含通用 OCR；扫描件需要先做 OCR。
 - Excel 与 PPT 的解析以文本提取为主，不保留完整视觉布局。
-- 索引当前保存在进程内存中，服务重启后需要重新处理文档。
+- 知识库持久化在 SQLite，FAISS 和 BM25 在启动时重建；UI 与 API 是独立进程，各自可能短暂使用旧的进程内索引。
 - 首次使用向量或重排序模型时可能需要下载模型文件。
 - 联网搜索和云端模型会把相应查询发送到第三方服务，请先确认数据边界。
 

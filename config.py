@@ -48,7 +48,13 @@ MAGICK_API_URL = os.getenv(
 OLLAMA_MODEL_NAME = os.getenv("OLLAMA_MODEL_NAME", "deepseek-r1:8b")
 SILICONFLOW_MODEL_NAME = os.getenv("SILICONFLOW_MODEL_NAME", "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B")
 MAGICK_MODEL_NAME = os.getenv("MAGICK_MODEL_NAME", "gpt-4o-mini")
+
+# 向量化模型：默认英文 MiniLM；中文语料建议换成 BAAI/bge-base-zh-v1.5 等
+EMBED_MODEL_NAME = os.getenv("EMBED_MODEL_NAME", "all-MiniLM-L6-v2")
+# BGE 中文模型建议只给查询加指令前缀，文档向量不加
+EMBED_QUERY_PREFIX = os.getenv("EMBED_QUERY_PREFIX", "")
 RERANK_METHOD = os.getenv("RERANK_METHOD", "cross_encoder")
+RERANK_MODEL_NAME = os.getenv("RERANK_MODEL_NAME", "BAAI/bge-reranker-base")
 
 MODEL_CHOICES = ["ollama", "siliconflow", "magick"]
 MODEL_DISPLAY_NAMES = {
@@ -84,6 +90,11 @@ RETRIEVAL_TOP_K = 10      # 检索返回的候选文档数量
 RERANK_TOP_K = 5          # 重排序后保留的文档数量
 MAX_RETRIEVAL_ITERATIONS = 3  # 递归检索的最大迭代轮数
 
+# Ollama 生成保护：限制输出长度和请求超时，避免长回答拖到客户端超时
+OLLAMA_MAX_OUTPUT_TOKENS = int(os.getenv("OLLAMA_MAX_OUTPUT_TOKENS", "1024"))
+OLLAMA_QUERY_MAX_TOKENS = int(os.getenv("OLLAMA_QUERY_MAX_TOKENS", "64"))
+OLLAMA_TIMEOUT_SECONDS = int(os.getenv("OLLAMA_TIMEOUT_SECONDS", "300"))
+
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 第五步：运行时环境配置
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -91,6 +102,10 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 os.environ['NO_PROXY'] = 'localhost,127.0.0.1'
 requests.adapters.DEFAULT_RETRIES = 3
+
+# 持久化数据目录（默认 data/，可用 RAG_DATA_DIR 覆盖）
+DATA_DIR = Path(os.getenv("RAG_DATA_DIR", str(Path(__file__).parent / "data")))
+DB_PATH = DATA_DIR / "rag.db"
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 第六步：LLM 后端自动检测
